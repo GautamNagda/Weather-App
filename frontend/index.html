@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <div class="logo">
+                <span class="logo-icon">☁️</span>
+                <span>Weather App</span>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Live Weather
+            </div>
+
+        </header>
+
+
+        <!-- MAIN -->
+        <main>
+
+            <!-- HERO -->
+            <section class="hero">
+
+                <p class="eyebrow">WEATHER INFORMATION</p>
+
+                <h1>
+                    Check weather<br>
+                    <span>anywhere.</span>
+                </h1>
+
+                <p class="subtitle">
+                    Search for a city and get the latest weather information instantly.
+                </p>
+
+
+                <!-- SEARCH -->
+                <div class="search-container">
+
+                    <div class="search-box">
+
+                        <span class="search-icon">🔍</span>
+
+                        <input
+                            type="text"
+                            id="cityInput"
+                            placeholder="Enter city name..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <button id="searchBtn" class="search-btn">
+                        Search
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- WEATHER -->
+            <section id="weather" class="weather-container">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🌤️
+                    </div>
+
+                    <h2>Search for a city</h2>
+
+                    <p>
+                        Enter a city above to see its current weather.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- FAVORITES -->
+            <section class="favorites-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">SAVED LOCATIONS</p>
+
+                        <h2>Your Favorite Cities</h2>
+                    </div>
+
+                    <span id="favoriteCount" class="favorite-count">
+                        0 cities
+                    </span>
+
+                </div>
+
+
+                <div id="favorites" class="favorites-grid">
+
+                    <!-- JavaScript will add favorites here -->
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <p>
+                Weather data provided by Open-Meteo
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
