@@ -8,13 +8,32 @@ const mongoose = require("mongoose");
 const Favorite = require("./models/Favorite");
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
+let isConnected = false;
+
+async function connectDB() {
+
+    if (isConnected) {
+        return;
+    }
+
+    try {
+
+        await mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 5000
+        });
+
+        isConnected = true;
+
         console.log("MongoDB connected");
-    })
-    .catch((error) => {
+
+    } catch (error) {
+
         console.log("MongoDB connection failed:", error);
-    });
+
+        throw error;
+
+    }
+}
 
 const app = express();
 
@@ -100,9 +119,13 @@ app.get("/api/weather/:city", async (req, res) => {
 // FAVORITES API - CREATE
 // ========================================
 
+
 app.post("/api/favorites", async (req, res) => {
 
     try {
+
+        // Connect to MongoDB before doing any database operation
+        await connectDB();
 
         let city = req.body?.city;
 
@@ -158,6 +181,7 @@ app.post("/api/favorites", async (req, res) => {
         // Save to MongoDB
         await favorite.save();
 
+        // Send response
         res.status(201).json({
 
             message: `${city} added to favorites`,
@@ -168,7 +192,7 @@ app.post("/api/favorites", async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.log("FAVORITES POST ERROR:", error);
 
         res.status(500).json({
             message: "Unable to save favorite"
@@ -178,7 +202,6 @@ app.post("/api/favorites", async (req, res) => {
 
 });
 
-
 // ========================================
 // FAVORITES API - READ ALL
 // ========================================
@@ -186,6 +209,9 @@ app.post("/api/favorites", async (req, res) => {
 app.get("/api/favorites", async (req, res) => {
 
     try {
+
+        // Connect to MongoDB
+        await connectDB();
 
         // Get all favorites from MongoDB
         const favorites = await Favorite.find();
@@ -195,7 +221,7 @@ app.get("/api/favorites", async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.log("FAVORITES GET ERROR:", error);
 
         res.status(500).json({
             message: "Unable to fetch favorites"
