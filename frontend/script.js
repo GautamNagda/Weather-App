@@ -1,3 +1,4 @@
+const API_URL = "http://localhost:3000";
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 const weatherDiv = document.getElementById("weather");
@@ -47,7 +48,7 @@ async function getWeather() {
     try {
 
         const response = await fetch(
-            `http://localhost:3000/api/weather/${encodeURIComponent(city)}`
+            `${API_URL}/api/weather/${encodeURIComponent(city)}`
         );
 
         const data = await response.json();
@@ -201,7 +202,7 @@ async function addFavorite(city) {
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/favorites",
+            `${API_URL}/api/favorites`,
             {
 
                 method: "POST",
@@ -251,7 +252,7 @@ async function loadFavorites() {
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/favorites"
+            `${API_URL}/api/favorites`
         );
 
 
@@ -373,7 +374,7 @@ async function deleteFavorite(id) {
 
         const response = await fetch(
 
-            `http://localhost:3000/api/favorites/${id}`,
+            `${API_URL}/api/favorites/${id}`,
 
             {
                 method: "DELETE"
